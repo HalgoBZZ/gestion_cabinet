@@ -1,0 +1,68 @@
+package com.project.dao;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.project.entities.Patient;
+import com.project.entities.Utilisateur;
+import com.project.types.EtatCompte;
+import com.project.types.Roles;
+
+
+
+public class PatientDao {
+/************************ ADD Patient*********************/
+	public void addpatient(Patient patient) {
+		SessionFactory factory=new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Patient.class)
+				.buildSessionFactory();
+		Session session=factory.openSession();
+		patient.setRole(Roles.Patient);
+		patient.setEtatUser(EtatCompte.Deconnecte);
+		session.beginTransaction();
+		session.save(patient);
+		session.getTransaction().commit();
+		session.close();
+	}
+	/********search by id************/
+	public Patient getone(Long id){
+		SessionFactory factory=new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Patient.class)
+				.buildSessionFactory();
+		Session session=factory.openSession();
+		session.beginTransaction();		
+		Query query=session.createQuery("from Utilisateur where idUtilisateur= :id");
+        query.setParameter("id",id);
+		List<Patient>list=query.list();
+        session.getTransaction().commit();
+        session.close();
+        if(list.isEmpty()){
+        	return null;
+	    }
+        return list.get(0);        
+	}
+	/***************DELETE**************/
+	public void DeletePatient(Patient patient){
+		SessionFactory factory=new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(Patient.class)
+				.buildSessionFactory();
+		Session session=factory.openSession();
+		session.beginTransaction();	
+		session.delete(patient);
+		session.getTransaction().commit();
+		session.close();
+	}
+
+	
+
+	
+
+}

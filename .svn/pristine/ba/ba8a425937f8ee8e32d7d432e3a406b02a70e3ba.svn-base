@@ -1,0 +1,153 @@
+/**
+ * 
+ */
+$(document).ready(getall());
+function getall(){
+    var url ="webapi/utilisateur/getall";
+    $.ajax({
+    	type:"GET",
+    	url:url,
+    	contentType:"application/json; charset=utf-8",
+	    dataType: "json",
+	    success: function (obj) {
+	    	var globalCounter = 0;
+	    	var tbody = document.getElementById('tbody');
+
+	    	for (var i = 0; i < obj.length; i++) {
+	    	    var tr = "<tr>";
+
+	    	    /* Verification to add the last decimal 0 */
+	    	    
+
+	    	    /* Must not forget the $ sign */
+	    	    tr += "<td>"+obj[i].idUtilisateur+"</td><td><span id='lblName' class='editable'>" + obj[i].nom + "</span></td><td><span id='lblName' class='editable'>" + obj[i].prenom + "</span></td><td><span id='lblName' class='editable'>" + obj[i].login + "</span></td>" + "<td><span id='lblName' class='editable'>" + obj[i].pwd + "</span></td>" + "<td><span id='lblName' class='editable'>" + obj[i].role + "</span></td>" +  "<td><span id='lblName' class='editable'>" + obj[i].cin + "</span></td>" + "<td><span id='lblName' class='editable'>" + obj[i].dossier + "</span></td>" + "<td><span id='lblName' class='editable'>" + obj[i].etatUser + "</span></td>" + "<td><input type='button' class='btn btn-sm btn-danger' value='Supprimé' onclick='suprime("+obj[i].idUtilisateur+")'></td></tr>";
+	    	    
+	    	    /* We add the table row to the table body */
+	    	    tbody.innerHTML += tr;
+	    	}
+	    	$(function () {
+	    	    //Loop through all Labels with class 'editable'.
+	    	    $(".editable").each(function () {
+	    	        //Reference the Label.
+	    	        var label = $(this);
+	    	 
+	    	        //Add a TextBox next to the Label.
+	    	        label.after("<input type = 'text' style = 'display:none' />");
+	    	        
+	    	       
+	    	        //Reference the TextBox.
+	    	        var textbox = $(this).next();
+	    	        
+	    	        //Set the name attribute of the TextBox.
+	    	        textbox[0].name = this.id.replace("lbl", "txt");
+	    	 
+	    	        //Assign the value of Label to TextBox.
+	    	        textbox.val(label.html());
+	    	 
+	    	        //When Label is clicked, hide Label and show TextBox.
+	    	        label.click(function () {
+	    	            $(this).hide();
+	    	            $(this).next().show();
+	    	        });
+	    	 
+	    	        //When focus is lost from TextBox, hide TextBox and show Label.
+	    	        textbox.focusout(function () {
+	    	        	
+	    	            $(this).hide();
+	    	            $(this).prev().html($(this).val());
+	    	            $(this).prev().show();
+	    	            $(document).ready(update($(this).val()));
+	    	           
+	    	        });
+	    	        
+	    	    });
+	    	    
+	    	});
+	    }
+    })
+    
+}
+
+
+
+function myFunction() {
+	  // Declare variables 
+	  var input, filter, table, tr, td, i;
+	  input = document.getElementById("myInput");
+	  filter = input.value.toUpperCase();
+	  table = document.getElementById("myTable");
+	  tr = table.getElementsByTagName("tr");
+
+	  // Loop through all table rows, and hide those who don't match the search query
+	  for (i = 0; i < tr.length; i++) {
+	    td = tr[i].getElementsByTagName("td")[1];
+	    if (td) {
+	      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+	        tr[i].style.display = "";
+	      } else {
+	        tr[i].style.display = "none";
+	      }
+	    } 
+	  }
+	}
+
+var update = function(modif){
+	var idmodif = prompt("Please enter your name");
+	var url="webapi/patient/updatepatient?id="+idmodif+"&modif="+modif;
+	$.ajax({
+		type:"GET",
+		url:url,
+		contentType:"application/json;charset=utf-8",
+		dataType:"json",
+		
+		success: function () {
+	    	
+  		  alert('data saved!')
+    
+  }
+		
+	})
+}
+
+
+var suprime = function(id){
+	var url = "webapi/patient/getone?id="+id;
+	$.ajax({
+	    type: "GET",
+	    url: url,
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	   
+	      success: function (data) {
+	    	
+	    		  $(document).ready(supp(data));
+	      
+	    }
+		
+	})	
+}	
+	
+var supp = function(data){
+	var url ="webapi/patient/delete";
+    $.ajax({
+		type:"DELETE",
+		url:url,
+		data:JSON.stringify(data),
+		dataType: "json",
+		contentType: "application/json",
+		success: function(data){
+			window.location = "./listpatient.html"
+			}
+
+		})
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

@@ -1,0 +1,76 @@
+package com.project.services;
+
+import java.util.List;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+
+import com.project.dao.RendezvousDAOO;
+import com.project.dao.UtilisateurDao;
+import com.project.entities.Patient;
+import com.project.entities.RendezVous;
+import com.project.entities.Utilisateur;
+
+@Path("rendezvous")
+public class RendezVousWS {
+	private RendezvousDAOO rendezvous = new RendezvousDAOO();
+	
+	
+	@Path("add")
+	@POST
+	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	public void addrendezvousws(@QueryParam("rendezvous")RendezVous rendezVous)
+	{  
+		rendezvous.addRendezVous(rendezVous);
+		}
+	
+	
+	@Path("update")
+	@PUT
+	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	public void Updaterendezvousws(@QueryParam("rendezvous")RendezVous rendezVous){
+		rendezvous.UpdateRendezVous(rendezVous);
+	}
+	@Path("delete")
+	@DELETE
+	@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	public void Deleterendezvousws(@QueryParam("rendezvous")RendezVous rendezVous){
+		rendezvous.DeleteRendezVous(rendezVous);
+	}
+	
+	@Path("getall")
+	@GET
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	public List<RendezVous> getrendezvousws(){
+		return rendezvous.getall();
+	} 
+/*
+	@Path("getmonth")
+	@GET
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	public List<RendezVous> getMonthws(){
+		return rendezvous.getMonth();
+	} 
+*/
+
+    @Path("valider")
+    @PUT
+    @Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    public void validerws(@QueryParam("rendezvous")RendezVous rendezVous){
+	rendezvous.valider(rendezVous);
+    }
+    @Path("refuser")
+    @PUT
+    @Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+    public void refusews(@QueryParam("rendezvous")RendezVous rendezVous){
+	rendezvous.refuser(rendezVous);
+    }
+}

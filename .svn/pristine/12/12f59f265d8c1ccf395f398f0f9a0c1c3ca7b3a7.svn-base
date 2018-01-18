@@ -1,0 +1,22 @@
+package com.project.services;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+
+import com.project.dao.UtilisateurDao;
+import com.project.entities.Utilisateur;
+
+@Path("utilisateur")
+public class UtilisateurWS {
+	private UtilisateurDao user = new UtilisateurDao();
+	@Path("connexion")
+	@GET
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	public Utilisateur connectws(@QueryParam("login") String login,@QueryParam("pwd") String pwd){
+		return user.Connexion(login, pwd);
+	} 
+
+}

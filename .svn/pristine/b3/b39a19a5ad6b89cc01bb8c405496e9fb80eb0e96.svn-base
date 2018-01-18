@@ -1,0 +1,7 @@
+package com.project.types;
+
+public enum Etat {
+	Valide,
+	Refuse,
+	En_Attente
+}

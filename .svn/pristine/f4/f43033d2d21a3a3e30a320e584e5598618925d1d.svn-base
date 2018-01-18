@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+    <script src="js/ajax.js"></script>
+		<script src="JavaScript/index.js" type="text/javascript"></script>
+        <script src="js/jquery.min.js"></script>
+		<script src="js/skel.min.js"></script>
+
+    <title>Signin Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+   <!--  <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet">-->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+  </head>
+<body>
+  <div class="container">
+<div class="box-for overflow">
+                        <div class="col-md-12 col-xs-12 register-blocks">
+                            
+                            <form>
+                            <h2 class="form-signin-heading">Inscription</h2> 
+                                <table>
+                                <tr>
+                                <td>
+                                <div class="form-group">
+                                
+                                    
+                                    <input type="text" class="form-control" placeholder="Nom" id="nom">
+                                </div>
+                                </td>
+                                
+                                <td>
+                                <div class="form-group">
+                                   
+                                    <input type="text" class="form-control" placeholder="Prénom" id="prenom">
+                                </div>
+                                </td>
+                                </tr>
+                                <tr>
+                                <td>
+                                <div class="form-group">
+                                   
+                                    <input type="text" class="form-control" placeholder="CIN" id="cin">
+                                </div>
+                                </td>
+                                 <td>
+                                <div class="form-group">
+                                    
+                                    <input type="text" class="form-control" placeholder="Sexe" id="sexe">
+                                </div>
+                                </td>
+                                </tr>
+                                <tr>
+                                <td>
+                                <div class="form-group">
+                                  
+                                    <input type="date" class="form-control" id="date">
+                                </div>
+                                </td>
+                                
+                                </tr>
+                                <tr>
+                                <td>
+                                <div class="form-group">
+                                    
+                                    <input type="text" class="form-control" placeholder="Num_Dossier" id="dossier">
+                                </div>
+                                </td>
+                                
+                                
+                                <td>
+                                <div class="form-group">
+                                    
+                                    <input type="text" class="form-control" placeholder="Téléphone" id="tel">
+                                </div>
+                                </td>
+                                </tr>
+                                <tr>
+                                <td>
+                                <div class="form-group">
+                                    
+                                    <input type="text" class="form-control" placeholder="Login" id="login">
+                                </div>
+                                </td>
+                                
+                                <td>
+                                <div class="form-group">
+                                    
+                                    <input type="password" class="form-control" placeholder="Mot de Passe" id="pwd">
+                                </div>
+                                </td>
+                                </tr>
+                                <tr>
+                                <td>
+                                <div class="text-center">
+                                    <input type="button" value="Register" class="btn btn-default" onclick="save()"/>
+                                </div>
+                                </td>
+                                </tr>
+                                
+                                </table>
+                                
+                               
+                            </form>
+                        </div>
+                    </div>
+</div>
+</body>
+</html>

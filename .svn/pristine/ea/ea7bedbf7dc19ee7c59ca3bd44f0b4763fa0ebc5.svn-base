@@ -1,0 +1,39 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Test jquery</title>
+<script type="text/javascript">
+
+function add(a,b) {
+	var a=document.getElementById("a").value;
+	var b=document.getElementById("b").value;
+	var url="webapi/calcul/add?a="+a+"&b="+b;
+	requete = new XMLHttpRequest();
+	requete.open("GET",url,true);
+	requete.send(null);
+}
+function sub(c,d) {
+	var c=document.getElementById("c").value;
+	var d=document.getElementById("d").value;
+	var url="webapi/calcul/sub?a="+c+"&b="+d;
+	requete = new XMLHttpRequest();
+	requete.open("GET",url,true);
+	requete.send(null);
+}
+</script>
+</head>
+<body>
+
+    
+<div>
+<input type="text" id="a">
+<input type="text" id="b">
+<input type="button" onclick="add()" value="add">
+</div>
+<div>
+<input type="text" id="c">
+<input type="text" id="d">
+<input type="button" onclick="sub()" value="sub">
+</div>
+</body>
+</html>

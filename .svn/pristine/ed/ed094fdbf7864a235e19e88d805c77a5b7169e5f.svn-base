@@ -1,0 +1,119 @@
+package com.project.dao;
+
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import com.project.types.EtatCompte;
+import com.project.types.EtatRDV;
+import com.project.types.Roles;
+import com.project.entities.Patient;
+import com.project.entities.RendezVous;
+import com.project.entities.Utilisateur;
+
+
+
+@SuppressWarnings({ "deprecation", "rawtypes","unchecked" })
+public class RendezvousDAOO {
+	
+		public void addRendezVous(RendezVous rendezVous) {
+			SessionFactory factory=new Configuration()
+					.configure("hibernate.cfg.xml")
+					.addAnnotatedClass(RendezVous.class)
+					.buildSessionFactory();
+			Session session=factory.openSession();
+			rendezVous.setEtatRdv(EtatRDV.En_Attente);
+			session.beginTransaction();
+			session.save(rendezVous);
+			session.getTransaction().commit();
+			session.close();
+		}
+	
+
+		public void UpdateRendezVous(RendezVous rendezVous){
+		SessionFactory factory=new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(RendezVous.class)
+				.buildSessionFactory();
+		Session session=factory.openSession();
+		session.beginTransaction();	
+		RendezVous myrendezVous=session.get(RendezVous.class, rendezVous.getIdRdv());
+		myrendezVous.setDateRdv(rendezVous.getDateRdv());
+		myrendezVous.setHeureRdv(rendezVous.getHeureRdv());
+		session.getTransaction().commit();
+		session.close();
+	}
+	
+	
+
+	public void DeleteRendezVous(RendezVous rendezVous){
+		SessionFactory factory=new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(RendezVous.class)
+				.buildSessionFactory();
+		Session session=factory.openSession();
+		session.beginTransaction();	
+		Query query=session.createQuery("from RendezVous");
+		session.delete(rendezVous);
+		session.getTransaction().commit();
+		session.close();
+	}
+	
+	public List<RendezVous> getall() {
+		SessionFactory factory=new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(RendezVous.class)
+				.buildSessionFactory();
+		Session session=factory.openSession();
+		session.beginTransaction();		
+		Query query=session.createQuery("from RendezVous");
+		List<RendezVous>list=query.list();
+        session.getTransaction().commit();
+        session.close();
+        if(list.isEmpty()){
+        	return null;
+	    }       
+		
+        return list;        
+	 	
+	}
+
+	
+	
+	public void valider(RendezVous rendezVous){
+		SessionFactory factory=new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(RendezVous.class)
+				.buildSessionFactory();
+		Session session=factory.openSession();
+		session.beginTransaction();
+		rendezVous.setEtatRdv(EtatRDV.Valide);	
+        session.getTransaction().commit();
+        session.close();
+	}
+	
+	public void refuser(RendezVous rendezVous){
+		SessionFactory factory=new Configuration()
+				.configure("hibernate.cfg.xml")
+				.addAnnotatedClass(RendezVous.class)
+				.buildSessionFactory();
+		Session session=factory.openSession();
+		session.beginTransaction();
+		rendezVous.setEtatRdv(EtatRDV.Refuse);	
+        session.getTransaction().commit();
+        session.close();
+	}
+	
+	
+	
+	}
